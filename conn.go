@@ -125,11 +125,11 @@ func (c *Conn) Read(buffer []byte) (int, error) {
 		log.Printf("read buffer smaller than input buffer")
 		log.Printf("output from buffer: %x", c.readBuffer)
 		log.Printf("output to client  : %x", buffer)
-		c.readBuffer = c.readBuffer[:0]
 		read = len(c.readBuffer)
+		c.readBuffer = c.readBuffer[read:]
 	} else {
 		log.Printf("read buffer larger than than input buffer")
-		copy(buffer[:0], c.readBuffer[:n])
+		copy(buffer[:n], c.readBuffer[:n])
 		log.Printf("read buffer smaller than input buffer")
 		log.Printf("output from buffer: %x", c.readBuffer[:n])
 		log.Printf("output to client  : %x", buffer)
